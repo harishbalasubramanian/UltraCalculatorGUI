@@ -1,11 +1,15 @@
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
+
 public class second extends JFrame{
 	private JTextField field1;
 	private JButton one;
@@ -28,8 +32,10 @@ public class second extends JFrame{
 	private JButton cle;
 	private JButton sqrt;
 	private JButton squ;
+	private JButton bac;
 	private double num1;
 	private double num2;
+	private StringBuilder strbui;
 	private int y;
 	private boolean x = true;
 	private String b;
@@ -37,7 +43,7 @@ public class second extends JFrame{
 		super("The Ultra Calculator");
 		setLayout(new FlowLayout());
 		field1 = new JTextField();
-		
+
 		field1.setSize(400,200);
 		add(field1);
 		field1.setEditable(false);
@@ -103,6 +109,9 @@ public class second extends JFrame{
 		add(squ);
 		squ.setPreferredSize(new Dimension(80,50));
 		Way yay = new Way();
+		bac = new JButton("←");
+		add(bac);
+		bac.setPreferredSize(new Dimension(80,50));
 		one.addActionListener(yay);
 		two.addActionListener(yay);
 		thr.addActionListener(yay);
@@ -123,6 +132,7 @@ public class second extends JFrame{
 		cle.addActionListener(yay);
 		sqrt.addActionListener(yay);
 		squ.addActionListener(yay);
+		bac.addActionListener(yay);
 	}
 	private class Way implements ActionListener{
 		public void actionPerformed (ActionEvent wow) {
@@ -202,6 +212,7 @@ public class second extends JFrame{
 				num1 = Double.parseDouble(field1.getText());
 				field1.setText(field1.getText()+"");
 			}
+			
 			if (wow.getSource() == equ){
 				String c = field1.getText();
 				String a = c.replace(b, "");
@@ -226,9 +237,19 @@ public class second extends JFrame{
 				}
 			}if(wow.getSource()==cle){
 				field1.setText("");
+			}if (wow.getSource()==bac){
+				String newone = null;
+				if (field1.getText().length()>0){
+					StringBuilder yoyo = new StringBuilder(field1.getText().length());
+					yoyo.deleteCharAt(field1.getText().length());
+					newone = yoyo.toString();
+					field1.setText(newone);
+				}
+				
 			}
 		}
 	}
+	
 	public double addit(double a, double b){
 		double c = a+b;
 		return c;
